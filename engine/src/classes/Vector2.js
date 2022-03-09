@@ -29,12 +29,13 @@ class Vector2 {
         );
     }
     
-    static zero  () { return new Vector2(0, 0)  }
-    static one   () { return new Vector2(1, 1)  }
-    static up    () { return new Vector2(0, 1)  }
-    static down  () { return new Vector2(0, -1) }
-    static left  () { return new Vector2(-1, 0) }
-    static right () { return new Vector2(1, 0)  }
+    static zero   () { return new Vector2(0, 0)  }
+    static one    () { return new Vector2(1, 1)  }
+    static up     () { return new Vector2(0, 1)  }
+    static down   () { return new Vector2(0, -1) }
+    static left   () { return new Vector2(-1, 0) }
+    static right  () { return new Vector2(1, 0)  }
+    static single (n) { return new Vector2(n, n) }
 }
 
 export default Vector2;
