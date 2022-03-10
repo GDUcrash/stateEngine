@@ -39,7 +39,7 @@ export const createElement = (tag, props, ...children) => {
     }
 }
 
-const appendChild = (parent, child) => {
+export const appendChild = (parent, child) => {
 	if (Array.isArray(child))
 		child.forEach((nestedChild) => appendChild(parent, nestedChild));
 	else {

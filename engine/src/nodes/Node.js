@@ -1,8 +1,9 @@
 import Vector2 from '../classes/Vector2.js';
 import Dimension2 from '../classes/Dimension2.js';
+import Container from './Container.js';
 import * as util from '../util/util.js';
 
-class Node {
+class Node extends Container {
 
     // private properties
 
@@ -25,20 +26,18 @@ class Node {
 
     // event methods
 
-    #element = document.createElement('div');
-    #children = [];
-
     constructor (id=null) {
+        super();
         this.#id = id;
 
         // construct element
-        this.#element.id = id;
-        this.#element.className = 'state-engine-node';
+        this.element.id = id;
+        this.element.className = 'state-engine-node';
     }
 
     render () {
         this.emitEvent('create', { id: this.#id, ref: this });
-        return this.#element;
+        return this.element;
     }
 
     destroy () {
@@ -50,16 +49,7 @@ class Node {
 
     get id () { return this.#id }
     set id (id) { 
-        if(!this.#id) this.#id = this.#element.id = id;
-    }
-
-    get children ()  { return this.#children }
-    set children (c) { 
-        this.#children = c;
-        this.#element.innerHTML = '';
-        c.forEach(elem => {
-            this.#element.appendChild(elem);
-        });
+        if(!this.#id) this.#id = this.element.id = id;
     }
 
     get position ()    { return this.#transform.pos   }

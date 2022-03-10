@@ -1,15 +1,17 @@
-import { createElement } from "./src/util/jsx.js";
-import Node from "./src/nodes/Node.js";
 import Vector2 from "./src/classes/Vector2.js";
+import Dimension2 from "./src/classes/Dimension2.js";
+import Node from "./src/nodes/Node.js";
+import Container from "./src/nodes/Container.js";
+import Director from "./src/environment/Director.js";
+import Scene from "./src/environment/Scene.js";
 
-let myNode = new Node('player');
-myNode.position = new Vector2(-69, 429);
-myNode.on('create', e => {
-    console.log('node created!', e);
-});
+import { createElement } from "./src/util/jsx.js";
 
+const world = new Director(document.body);
 
-<div>
-    <Node id="player" position={new Vector2(69, 5)} onCreate={console.log} />
-    {myNode}
-</div>
+export { 
+    Vector2, Dimension2, 
+    Node, Container, Scene,
+    Director, world,
+    createElement
+};
