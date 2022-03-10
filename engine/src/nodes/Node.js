@@ -1,9 +1,8 @@
-import React from 'react';
 import Vector2 from '../classes/Vector2.js';
 import Dimension2 from '../classes/Dimension2.js';
 import * as util from '../util/util.js';
 
-class Node extends React.Component {
+class Node {
 
     // private properties
 
@@ -26,18 +25,42 @@ class Node extends React.Component {
 
     // event methods
 
+    #element = document.createElement('div');
+    #children = [];
+
     constructor (id=null) {
-        super();
         this.#id = id;
+
+        // construct element
+        this.#element.id = id;
+        this.#element.className = 'state-engine-node';
     }
 
     render () {
-        return <div className='state-engine-node' id={this.#id}> { this.props.children } </div>;
+        this.emitEvent('create', { id: this.#id, ref: this });
+        return this.#element;
+    }
+
+    destroy () {
+        this.emitEvent('destroy', { id: this.#id });
+        delete this;
     }
 
     // getters/setters for properties
 
     get id () { return this.#id }
+    set id (id) { 
+        if(!this.#id) this.#id = this.#element.id = id;
+    }
+
+    get children ()  { return this.#children }
+    set children (c) { 
+        this.#children = c;
+        this.#element.innerHTML = '';
+        c.forEach(elem => {
+            this.#element.appendChild(elem);
+        });
+    }
 
     get position ()    { return this.#transform.pos   }
     get rotation ()    { return this.#transform.rot   }
@@ -111,6 +134,22 @@ class Node extends React.Component {
         this.parallaxScale = scale;
     }
     
+    // events
+
+    #eventMap = {}
+
+    emitEvent (name, ctx, additionalFunc) {
+        let targetEvent = this.#eventMap[name];
+        if(!util.isFunction(targetEvent)) return;
+
+        targetEvent(ctx);
+        if(util.isFunction(additionalFunc)) additionalFunc(ctx);
+    }
+
+    on (event, func) {
+        this.#eventMap[event] = func;
+    }
+
 }
 
 export default Node;

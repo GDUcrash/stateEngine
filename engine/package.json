@@ -18,14 +18,10 @@
     "url": "https://github.com/GDUcrash/stateEngine/issues"
   },
   "homepage": "https://github.com/GDUcrash/stateEngine#readme",
-  "dependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.17.5",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
+    "@babel/plugin-transform-react-jsx": "^7.17.3",
     "babel-loader": "^8.2.3",
     "css-loader": "^6.7.1",
     "file-loader": "^6.2.0",

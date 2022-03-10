@@ -10,3 +10,7 @@ export function clamp (val, min, max) {
 export function isVector (val) { 
     return val && val.isVector;
 }
+
+export function isFunction(val) {
+    return val && typeof val == 'function';
+}
