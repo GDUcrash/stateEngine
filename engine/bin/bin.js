@@ -6,9 +6,15 @@ import open from 'open';
 import fs from 'fs';
 import path from 'path';
 import chalk from "chalk";
+import {PluginManager} from "live-plugin-manager";
+const manager = new PluginManager({ pluginsPath: 'node_modules' });
 
 const port = 8080;
 const templatePath = 'node_modules/state-game-engine/bin/template';
+const dependencies = {
+    "@babel/core": "^7.17.5",
+    "@babel/plugin-transform-react-jsx": "^7.17.3"
+}
 
 let mode = process.argv[2];
 let modes = {
@@ -38,13 +44,13 @@ let modes = {
         // create required files & folders from the template
         console.log('Creating directories from template...');
         copyFolderRecursiveSync(templatePath, '.');
-        console.log(chalk.green(`\n\nStateEngine is ready! Now run ${chalk.bold('npm install')} to install the required components`))
     
         // restore package.json
         if(packageJson) {
             if(!packageJson.dependencies) packageJson.dependencies = {};
-            packageJson.dependencies["@babel/core"] = "^7.17.5";
-            packageJson.dependencies["@babel/plugin-transform-react-jsx"] = "^7.17.3";
+            Object.entries(dependencies).forEach(([k, v]) => {
+                packageJson.dependencies[k] = v;
+            });
             fs.writeFileSync('package.json', JSON.stringify(packageJson, null, 2));
         }
     }
