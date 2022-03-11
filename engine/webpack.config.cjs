@@ -6,7 +6,7 @@ module.exports = {
   mode: 'development',
   output: {
     filename: "bundle.[hash].js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "dist")
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -16,6 +16,9 @@ module.exports = {
   resolve: {
     modules: [__dirname, "src", "node_modules"],
     extensions: ["*", ".js", ".jsx", ".tsx", ".ts"],
+  },
+  devServer: {
+    hot: true
   },
   module: {
     rules: [
