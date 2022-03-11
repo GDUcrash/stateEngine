@@ -1,6 +1,6 @@
 {
   "name": "state-game-engine",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "description": "An engine for simple pre-rendered interaction-based games",
   "main": "index.js",
   "type": "module",
@@ -21,8 +21,7 @@
     "state-game-engine": "bin/bin.js"
   },
   "homepage": "https://github.com/GDUcrash/stateEngine#readme",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "@babel/core": "^7.17.5",
     "@babel/plugin-transform-react-jsx": "^7.17.3",
     "babel-loader": "^8.2.3",
