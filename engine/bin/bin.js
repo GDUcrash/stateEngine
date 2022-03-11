@@ -53,6 +53,17 @@ let modes = {
             });
             fs.writeFileSync('package.json', JSON.stringify(packageJson, null, 2));
         }
+
+        // install dependencies
+        let deps = Object.entries(dependencies);
+        let depsInstalled = 0;
+        deps.forEach(async ([k, v]) => {
+            console.log(`Installing ${k}...`);
+            await manager.installFromNpm(k, v);
+            depsInstalled++;
+            if(depsInstalled >= deps.length)
+                console.log(chalk.green(`\n\nStateEngine is ready! Now run ${chalk.bold('npm install')} to install the required components`));
+        });
     }
 }
 
