@@ -8,7 +8,7 @@ import path from 'path';
 import chalk from "chalk";
 
 const port = 8080;
-const templatePath = 'node_modules/state-engine/bin/template';
+const templatePath = 'node_modules/state-game-engine/bin/template';
 
 let mode = process.argv[2];
 let modes = {
@@ -54,7 +54,7 @@ if (!modes[mode]) {
     console.error(
         chalk.red('\nPlease specify a mode you want to run this command in!\n\n') +
         `Availible modes: ${chalk.bold(chalk.cyan('setup'))}, ${chalk.bold(chalk.cyan('run'))}, ${chalk.bold(chalk.cyan('build'))}\n\n` +
-        'Example: ' + chalk.bold(chalk.green('npx state-engine run\n'))
+        'Example: ' + chalk.bold(chalk.green('npx state-game-engine run\n'))
     );
 } else {
     modes[mode]();
