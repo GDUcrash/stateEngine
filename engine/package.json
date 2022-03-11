@@ -1,6 +1,6 @@
 {
-  "name": "state-engine",
-  "version": "0.0.3",
+  "name": "state-game-engine",
+  "version": "0.0.5",
   "description": "An engine for simple pre-rendered interaction-based games",
   "main": "index.js",
   "type": "module",
@@ -18,7 +18,7 @@
     "url": "https://github.com/GDUcrash/stateEngine/issues"
   },
   "bin": {
-    "state-engine": "bin/bin.js"
+    "state-game-engine": "bin/bin.js"
   },
   "homepage": "https://github.com/GDUcrash/stateEngine#readme",
   "dependencies": {},

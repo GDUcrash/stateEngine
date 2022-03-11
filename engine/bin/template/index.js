@@ -1,4 +1,4 @@
-const { world, Scene, Node, Vector2, Dimension2, createElement } = require('state-engine');
+const { world, Scene, Node, Vector2, Dimension2, createElement } = require('state-game-engine');
 
 const mainScene = <Scene>
     <Node 
