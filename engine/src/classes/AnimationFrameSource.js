@@ -5,6 +5,8 @@ class AnimationFrameSource extends AnimationSource {
     #sourcesList = [];
     #currentFrame = 0;
 
+    isFrameSource = true;
+
     constructor (src) {
         if(Array.isArray(src)) {
             super(src[0]);

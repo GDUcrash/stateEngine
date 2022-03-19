@@ -4,6 +4,8 @@ class AnimationVideoSource extends AnimationSource {
 
     element = document.createElement('video');
 
+    isVideoSource = true;
+
     constructor (src) {
         super(src);
         this.element.autoplay = true;

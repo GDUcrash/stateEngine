@@ -15,7 +15,6 @@ class TexturedNode extends Node {
 
     render () {
         this.#updateTexture();
-        this.element.appendChild(this.textureElement);
         return this.element;
     }
 
