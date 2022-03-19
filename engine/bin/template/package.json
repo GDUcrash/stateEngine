@@ -12,6 +12,6 @@
   "dependencies": {
     "@babel/core": "^7.17.5",
     "@babel/plugin-transform-react-jsx": "^7.17.3",
-    "state-game-engine": "^0.0.10"
+    "state-game-engine": "^0.0.11"
   }
 }
