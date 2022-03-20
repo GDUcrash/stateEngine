@@ -25,9 +25,10 @@ let mainScene = <Scene>
                 e.self.rotation = -3;
             }}
             onProcess={e => {
-                e.self.counter++;
+                if(e.dt > 69) e.dt = 69;
+                e.self.counter += e.dt * 0.1;
                 e.self.position.x = Math.sin(e.self.counter*0.2);
-                e.self.rotation += e.self.position.x;
+                e.self.rotation = e.self.position.x * e.dt *0.2;
             }}
         />
     </Container>

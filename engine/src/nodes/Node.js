@@ -152,8 +152,11 @@ class Node extends Container {
         this.process();
     }
 
-    process () {
+    process (dt) {
         if(!this.#processing) return;
+        if(!dt || util.isNan(dt)) dt = 0;
+
+        let prevTime = Date.now();
 
         // update node's transofrm, visibility and zIndex
         this.element.style.transform = 
@@ -164,9 +167,12 @@ class Node extends Container {
         this.element.style.zIndex = this.zindex;
 
         // emit process event
-        this.emitEvent('process', { delta: 0, dt: 0, id: this.#id, self: this });
+        this.emitEvent('process', { delta: dt, dt: dt, id: this.#id, self: this });
 
-        requestAnimationFrame(() => { this.process() });
+        requestAnimationFrame(() => { 
+            let newTime = Date.now();
+            this.process(newTime - prevTime);
+        });
     }
 
 }

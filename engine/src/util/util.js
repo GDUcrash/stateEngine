@@ -14,3 +14,7 @@ export function isVector (val) {
 export function isFunction(val) {
     return val && typeof val == 'function';
 }
+
+export function isNan (val) {
+    return val && val.toString && val.toString() == 'NaN';
+}
