@@ -24,6 +24,8 @@ class Node extends Container {
         scale: Vector2.one()
     }
 
+    #processing = false;
+
     // event methods
 
     constructor (id=null) {
@@ -36,11 +38,12 @@ class Node extends Container {
     }
 
     render () {
-        this.emitEvent('create', { id: this.#id, ref: this });
+        this.create();
         return this.element;
     }
 
     destroy () {
+        this.#processing = false;
         this.emitEvent('destroy', { id: this.#id });
         delete this;
     }
@@ -138,6 +141,32 @@ class Node extends Container {
 
     on (event, func) {
         this.#eventMap[event] = func;
+    }
+
+    // create and process events
+
+    create () {
+        this.#processing = true;
+        this.emitEvent('create', { id: this.#id, self: this });
+
+        this.process();
+    }
+
+    process () {
+        if(!this.#processing) return;
+
+        // update node's transofrm, visibility and zIndex
+        this.element.style.transform = 
+            `translate(${this.position.x * this.parallaxMove.x}px, ${this.position.y * this.parallaxMove.y}px)` + 
+            `rotate(${this.rotation}deg)` + 
+            `scale(${this.scale.x * this.parallaxScale.x}, ${this.scale.y * this.parallaxScale.y})`;
+        this.element.style.display = this.visible ? 'block' : 'none';
+        this.element.style.zIndex = this.zindex;
+
+        // emit process event
+        this.emitEvent('process', { delta: 0, dt: 0, id: this.#id, self: this });
+
+        requestAnimationFrame(() => { this.process() });
     }
 
 }

@@ -11,6 +11,7 @@ class DynamicBodyNode extends Node {
     }
 
     render () {
+        this.create();
         this.#updateAnimation();
         return this.element;
     }

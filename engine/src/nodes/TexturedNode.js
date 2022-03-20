@@ -14,6 +14,7 @@ class TexturedNode extends Node {
     }
 
     render () {
+        this.create();
         this.#updateTexture();
         return this.element;
     }
