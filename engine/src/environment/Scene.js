@@ -2,6 +2,8 @@ import Container from "../nodes/Container.js";
 
 class Scene extends Container {
 
+    isScene = true;
+
     constructor () {
         super();
 

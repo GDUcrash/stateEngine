@@ -9,6 +9,7 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 .state-engine-node {
@@ -18,6 +19,7 @@ body {
     left: 0;
     right: 0;
     margin: auto;
-    width: fit-content;
-    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

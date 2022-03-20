@@ -146,10 +146,12 @@ class Node extends Container {
     // create and process events
 
     create () {
-        this.#processing = true;
-        this.emitEvent('create', { id: this.#id, self: this });
+        setTimeout(() => { 
+            this.#processing = true;
+            this.emitEvent('create', { id: this.#id, self: this });
 
-        this.process();
+            this.process();
+        }, 0);
     }
 
     process (dt) {
@@ -163,7 +165,7 @@ class Node extends Container {
             `translate(${this.position.x * this.parallaxMove.x}px, ${this.position.y * this.parallaxMove.y}px)` + 
             `rotate(${this.rotation}deg)` + 
             `scale(${this.scale.x * this.parallaxScale.x}, ${this.scale.y * this.parallaxScale.y})`;
-        this.element.style.display = this.visible ? 'block' : 'none';
+        this.element.style.display = this.visible ? '' : 'none';
         this.element.style.zIndex = this.zindex;
 
         // emit process event

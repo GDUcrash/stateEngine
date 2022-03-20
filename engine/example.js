@@ -9,12 +9,14 @@ import CharacterNode from './src/nodes/CharacterNode.js';
 import AnimationSource from './src/classes/AnimationSource.js';
 import { createElement } from "./src/util/jsx.js";
 import style from './src/styles/index.css';
+import Vector2 from './src/classes/Vector2.js';
 
 
 let director = new Director(document.body);
 
 let mainScene = <Scene>
     <Container>
+        <Node id="playerParent">
         <CharacterNode 
             id="player"
             name="player"
@@ -22,18 +24,16 @@ let mainScene = <Scene>
             animation={new AnimationSource("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Bebra_Wasserturm.jpeg/220px-Bebra_Wasserturm.jpeg")} 
             onCreate={e => {
                 e.self.counter = 0;
-                e.self.rotation = -3;
+                console.log(e.self.parentScene());
             }}
             onProcess={e => {
                 if(e.dt > 69) e.dt = 69;
                 e.self.counter += e.dt * 0.1;
-                e.self.position.x = Math.sin(e.self.counter*0.2);
-                e.self.rotation = e.self.position.x * e.dt *0.2;
+                e.self.lerpTo(new Vector2((Math.random()-0.5) * e.self.counter*0.2, 0), 0.006 * e.dt);
             }}
         />
+        </Node>
     </Container>
 </Scene>;
-
-console.log(Node.Background);
 
 director.addScene(mainScene, 'main');
