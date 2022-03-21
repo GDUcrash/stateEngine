@@ -33,23 +33,18 @@ class Container {
     get parent ()  { return this.#parent }
     set parent (p) { this.#parent = p    }
 
-    #scanParentsWithRule (elem, rule, onFullfil) {
-        if(rule) onFullfil();
-        else return elem.parent;
-    }
-
     findParent (id) {
-        let resultElement = null;
+        let resultNode = null;
 
         let step = (elem) => this.#scanParentsWithRule(
             elem, elem.parent && elem.parent.id == id, 
-            () => { resultElement = elem.parent }
+            () => { resultNode = elem.parent }
         );
 
         let currentElement = this;
-        while (currentElement && !resultElement) currentElement = step(currentElement);
+        while (currentElement && !resultNode) currentElement = step(currentElement);
 
-        return resultElement;
+        return resultNode;
     }
 
     parentScene () {
@@ -64,6 +59,34 @@ class Container {
         while (currentElement && !resultScene) currentElement = step(currentElement);
 
         return resultScene;
+    }
+
+    findChild (id) {
+        let resultNode = null;
+
+        this.#scanChildrenWithRule(this, 'id', id, (node) => { resultNode = node });
+        return resultNode;
+    }
+
+    findChildrenOfType (type) {
+        let resultNodes = [];
+
+        this.#scanChildrenWithRule(this, 'type', type, (node) => { resultNodes.push(node) });
+        return resultNodes;
+    }
+
+    #scanParentsWithRule (node, rule, onFullfil) {
+        if(rule) onFullfil();
+        else return node.parent;
+    }
+
+    #scanChildrenWithRule (node, prop, val, onFullfil) {
+        if (!node || node[prop] == val) onFullfil(node);
+        if (!node.children) return;
+
+        node.children.forEach(child => {
+            this.#scanChildrenWithRule(child, prop, val, onFullfil);
+        });
     }
 
 }

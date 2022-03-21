@@ -3,6 +3,8 @@ import AnimationSource from '../classes/AnimationSource.js';
 
 class DynamicBodyNode extends Node {
 
+    type = 'dynamicBody';
+
     #animation = new AnimationSource(null);
     #active = true;
 

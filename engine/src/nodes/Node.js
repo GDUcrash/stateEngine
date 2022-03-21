@@ -5,6 +5,8 @@ import * as util from '../util/util.js';
 
 class Node extends Container {
 
+    type = 'node';
+
     // private properties
 
     #id = null;
@@ -77,6 +79,9 @@ class Node extends Container {
     get parallaxScale ()  { return this.#parallax.scale }
     set parallaxMove  (p) { this.#parallax.move = p     }
     set parallaxScale (p) { this.#parallax.scale = p    }
+
+    get processing ()  { return this.#processing }
+    set processing (t) { this.#processing = t    }
 
     // methods
 
@@ -161,12 +166,7 @@ class Node extends Container {
         let prevTime = Date.now();
 
         // update node's transofrm, visibility and zIndex
-        this.element.style.transform = 
-            `translate(${this.position.x * this.parallaxMove.x}px, ${this.position.y * this.parallaxMove.y}px)` + 
-            `rotate(${this.rotation}deg)` + 
-            `scale(${this.scale.x * this.parallaxScale.x}, ${this.scale.y * this.parallaxScale.y})`;
-        this.element.style.display = this.visible ? '' : 'none';
-        this.element.style.zIndex = this.zindex;
+        this.updateElement();
 
         // emit process event
         this.emitEvent('process', { delta: dt, dt: dt, id: this.#id, self: this });
@@ -175,6 +175,16 @@ class Node extends Container {
             let newTime = Date.now();
             this.process(newTime - prevTime);
         });
+    }
+
+    updateElement () {
+        // update node's transofrm, visibility and zIndex
+        this.element.style.transform = 
+            `translate(${this.position.x * this.parallaxMove.x}px, ${this.position.y * this.parallaxMove.y}px)` + 
+            `rotate(${this.rotation}deg)` + 
+            `scale(${this.scale.x * this.parallaxScale.x}, ${this.scale.y * this.parallaxScale.y})`;
+        this.element.style.display = this.visible ? '' : 'none';
+        this.element.style.zIndex = this.zindex;
     }
 
 }

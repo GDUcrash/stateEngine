@@ -2,6 +2,8 @@ import DynamicBodyNode from './DynamicBodyNode.js';
 
 class CharacterNode extends DynamicBodyNode {
 
+    type = 'character';
+
     #name = null;
 
     constructor (id=null) {

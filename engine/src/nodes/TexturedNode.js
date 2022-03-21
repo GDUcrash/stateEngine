@@ -3,6 +3,8 @@ import TextureSource from '../classes/TextureSource.js';
 
 class TexturedNode extends Node {
 
+    type = 'textured';
+
     #texture = new TextureSource();
     textureElement = document.createElement('img');
 
