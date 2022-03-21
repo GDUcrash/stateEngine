@@ -59,7 +59,7 @@ class CameraNode extends Node {
         }
 
         // get current scene element
-        let sceneElem = this.parentScene().element;
+        let sceneElem = this.parentScene().container;
         sceneElem.style.transform = `translate(${-this.offset.x}px, ${-this.offset.y}px) scale(${this.zoom})`;
     }
 

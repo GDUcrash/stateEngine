@@ -26,8 +26,12 @@ class Container {
         this.element.innerHTML = '';
         c.forEach(elem => {
             if(elem) elem.parent = this;
-            appendChild(this.element, elem);
+            this.addChildHTML(elem);
         });
+    }
+
+    addChildHTML (elem) {
+        appendChild(this.element, elem);
     }
 
     get parent ()  { return this.#parent }
