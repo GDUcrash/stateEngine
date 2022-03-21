@@ -3,6 +3,7 @@ import Container from "../nodes/Container.js";
 class Scene extends Container {
 
     isScene = true;
+    director = null;
 
     constructor () {
         super();

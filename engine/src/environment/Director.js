@@ -1,12 +1,20 @@
+import * as util from '../util/util.js';
+
 class Director {
 
     scenes = [];
 
+    #processListeneres = [];
+
     constructor (root) {
         this.root = root;
+        this.process(0);
     }
 
     addScene (scene, name) {
+
+        scene.director = this;
+
         let data = {
             name: name,
             ref: scene
@@ -28,6 +36,7 @@ class Director {
 
         // if this is the only scene at the moment, switch to it
         if(this.scenes.length == 1) this.switchToScene(name);
+
     }
 
     switchToScene (name) {
@@ -58,6 +67,27 @@ class Director {
     getSceneRef (name) {
         let targetScene = this.getScene(name);
         return targetScene ? targetScene.ref : null;
+    }
+
+    process (dt) {
+        let prevTime = Date.now();
+        
+        this.#processListeneres.forEach(node => {
+            if (node && util.isFunction(node.process)) node.process(dt);
+        });
+
+        requestAnimationFrame(() => { 
+            let newTime = Date.now();
+            this.process(newTime - prevTime);
+        });
+    }
+
+    addProcessListener (node) {
+        if(!this.#processListeneres.includes(node)) this.#processListeneres.push(node);
+    }
+
+    removeProcessListener (node) {
+        this.#processListeneres = this.#processListeneres.filter(f => f != node);
     }
 
 }

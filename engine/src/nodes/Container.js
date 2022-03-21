@@ -61,6 +61,10 @@ class Container {
         return resultScene;
     }
 
+    getDirector () {
+        return this.parentScene().director;
+    }
+
     findChild (id) {
         let resultNode = null;
 
