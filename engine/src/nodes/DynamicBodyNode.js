@@ -1,5 +1,6 @@
 import Node from './Node.js';
 import AnimationSource from '../classes/AnimationSource.js';
+import StateManager from '../classes/StateManager.js';
 
 class DynamicBodyNode extends Node {
 
@@ -7,6 +8,8 @@ class DynamicBodyNode extends Node {
 
     #animation = new AnimationSource(null);
     #active = true;
+
+    #stateManager = new StateManager(this);
 
     constructor (id=null) {
         super(id);
@@ -29,6 +32,9 @@ class DynamicBodyNode extends Node {
         this.#active = t;
         this.element.setAttribute('disabled', t);  
     }
+
+    get state  () { return this.#stateManager        }
+    get states () { return this.#stateManager.states }
 
     setActive (t) { this.active = t     }
     enable    ()  { this.active = true  }
