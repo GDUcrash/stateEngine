@@ -90,6 +90,13 @@ class Director {
         this.#processListeneres = this.#processListeneres.filter(f => f != node);
     }
 
+    preload (asset) {
+        let link = document.createElement('link');
+        link.rel = 'fetch';
+        link.href = asset;
+        this.root.appendChild(link);
+    }
+
 }
 
 export default Director;
