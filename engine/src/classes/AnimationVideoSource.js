@@ -8,6 +8,7 @@ class AnimationVideoSource extends AnimationSource {
 
     constructor (src) {
         super(src);
+        this.element.src = src;
         this.element.autoplay = true;
         this.element.controls = false;
     }

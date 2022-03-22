@@ -15,7 +15,8 @@ class State {
         this.#id = id;
     }
 
-    get id () { return this.#id }
+    get id ()   { return this.#id }
+    set id (id) { if(!this.#id) this.#id = id }
 
     get animation ()     { return this.#animation }
     set animation (anim) { this.#animation = anim }

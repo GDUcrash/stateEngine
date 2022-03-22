@@ -8,12 +8,22 @@ import DynamicBodyNode from './src/nodes/DynamicBodyNode.js';
 import CameraNode from './src/nodes/CameraNode.js';
 import CharacterNode from './src/nodes/CharacterNode.js';
 import AnimationSource from './src/classes/AnimationSource.js';
+import AnimationVideoSource from './src/classes/AnimationVideoSource.js';
+import Vector2 from './src/classes/Vector2.js';
+import State from './src/classes/State.js';
 import { createElement } from "./src/util/jsx.js";
 import style from './src/styles/index.css';
-import Vector2 from './src/classes/Vector2.js';
+
+import idleAnim from "./exampleassets/idle.webm";
+import dragStartAnim from "./exampleassets/drag_start.webm";
+import dragStaticAnim from "./exampleassets/drag_static.webm";
 
 
 let director = new Director(document.body);
+
+director.preload(idleAnim);
+director.preload(dragStartAnim);
+director.preload(dragStaticAnim);
 
 let mainScene = <Scene>
     <CameraNode 
@@ -30,13 +40,35 @@ let mainScene = <Scene>
             id="player"
             name="player"
             size={new Dimension2(50, 100)}
-            animation={new AnimationSource("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Bebra_Wasserturm.jpeg/220px-Bebra_Wasserturm.jpeg")} 
             onCreate={e => {
-                e.self.counter = 0;
-            }}
-            onProcess={e => {
-                e.self.position.x -= 5.1;
-                e.self.position.y += 5.1;
+                e.self.state.addState(<State 
+                    id="idle" 
+                    animation={new AnimationVideoSource(idleAnim)}
+                    loop
+                />);
+                e.self.state.addState(<State 
+                    id="dragStart" 
+                    animation={new AnimationVideoSource(dragStartAnim)}
+                    nextState="dragStatic"
+                />);
+                e.self.state.addState(<State 
+                    id="dragStatic" 
+                    animation={new AnimationVideoSource(dragStaticAnim)}
+                    loop
+                />);
+
+                let counter = 0;
+                document.addEventListener('click', () => {
+                    if(!counter) {
+                        e.self.state.setState('idle');
+                        setTimeout(() => {
+                            e.self.state.setState('dragStart');
+                        }, 1000);
+                    }
+                    else e.self.state.setState('dragStart');
+                    counter++;
+                });
+                
             }}
         />
         </Node>
